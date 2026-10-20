@@ -204,3 +204,199 @@ ul { list-style: none; }
     .weather h2 { font-size: 34px; }
     .details { gap: 30px; }
 }
+
+/* =====================================================
+   HOVER EFFECTS
+   ===================================================== */
+
+/* Navbar: animated underline + logo glow */
+.logo { transition: text-shadow .3s, transform .3s; display: inline-block; }
+.logo:hover { transform: scale(1.06); text-shadow: 0 0 14px rgba(0, 254, 186, .7); }
+
+.nav-links a { position: relative; padding: 6px 0; }
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: #00feba;
+    transition: width .3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* Button: lift, glow and shine sweep */
+.btn { position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s; }
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .45), transparent);
+    transform: skewX(-20deg);
+    transition: left .6s;
+}
+.btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 25px rgba(0, 254, 186, .35); }
+.btn:hover::before { left: 130%; }
+.btn:active { transform: scale(.97); }
+
+/* Weather card: lift + glow */
+.card { transition: transform .4s ease, box-shadow .4s ease; }
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 70px rgba(0, 254, 186, .25);
+}
+
+/* Search box: glow on hover/focus, button spins slightly */
+.search input { transition: box-shadow .3s, transform .3s; }
+.search input:hover,
+.search input:focus { box-shadow: 0 0 0 4px rgba(255, 255, 255, .35); }
+
+.search button { transition: transform .3s, background .3s, box-shadow .3s; }
+.search button:hover {
+    transform: scale(1.12) rotate(-12deg);
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .3);
+}
+.search button:active { transform: scale(.94); }
+
+/* Weather icon floats, humidity / wind blocks pop */
+.weather-icon { transition: transform .4s ease, filter .4s ease; }
+.weather-icon:hover { transform: scale(1.12) rotate(-4deg); filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .35)); }
+
+.col { transition: transform .3s ease; cursor: default; }
+.col:hover { transform: translateY(-5px) scale(1.06); }
+.col img { transition: transform .4s ease; }
+.col:hover img { transform: rotate(10deg) scale(1.15); }
+
+/* Feature cards: lift, mint border glow, emoji bounce */
+.feature {
+    border: 1px solid transparent;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background .3s;
+}
+.feature:hover {
+    transform: translateY(-10px);
+    border-color: #00feba;
+    background: rgba(50, 55, 60, .95);
+    box-shadow: 0 14px 35px rgba(0, 254, 186, .2);
+}
+.feature .emoji { display: inline-block; transition: transform .3s; }
+.feature:hover .emoji { animation: bounce .6s ease; transform: scale(1.2); }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1.2); }
+    40% { transform: translateY(-12px) scale(1.2); }
+    70% { transform: translateY(0) scale(1.2); }
+}
+
+/* Footer links slide right */
+.footer a:not(.logo) { transition: color .25s, transform .25s; }
+.footer a:not(.logo):hover { transform: translateX(6px); }
+
+/* Mobile menu items + toggle */
+.nav-toggle { transition: transform .3s, color .3s; }
+.nav-toggle:hover { color: #00feba; transform: scale(1.15); }
+@media (max-width: 700px) {
+    .nav-links a:hover { background: rgba(0, 254, 186, .1); }
+    .nav-links a::after { display: none; }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* =====================================================
+   RESPONSIVE – all devices
+   ===================================================== */
+
+/* Fluid base sizes so text scales smoothly between breakpoints */
+.hero h1 { font-size: clamp(30px, 5vw + 10px, 56px); }
+.hero p { font-size: clamp(14px, 1.2vw + 10px, 18px); }
+.features h2 { font-size: clamp(26px, 3vw + 12px, 38px); }
+img { max-width: 100%; }
+
+/* Phones with notches / rounded corners */
+.navbar, .footer { padding-left: max(6%, env(safe-area-inset-left)); padding-right: max(6%, env(safe-area-inset-right)); }
+.footer { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+
+/* ---------- Large screens / TVs (1400px+) ---------- */
+@media (min-width: 1400px) {
+    .card { max-width: 680px; }
+    .feature-grid, .footer-grid { max-width: 1150px; }
+    .hero { padding-top: 120px; }
+}
+
+/* ---------- Laptops / small desktops (≤1100px) ---------- */
+@media (max-width: 1100px) {
+    .nav-links { gap: 22px; }
+}
+
+/* ---------- Tablets (≤900px) ---------- */
+@media (max-width: 900px) {
+    .hero { padding: 70px 6% 40px; }
+    .weather-section { padding: 20px 6% 55px; }
+    .features { padding: 55px 6%; }
+    .details { gap: 50px; }
+}
+
+/* ---------- Large phones (≤600px) ---------- */
+@media (max-width: 600px) {
+    .hero { padding: 55px 5% 30px; }
+    .card { padding: 26px 18px; border-radius: 16px; }
+    .search input { height: 52px; font-size: 16px; padding: 8px 18px; margin-right: 10px; } /* 16px stops iOS zoom */
+    .search button { width: 52px; height: 52px; }
+    .weather-icon { width: 130px; margin-top: 22px; }
+    .weather h1 { font-size: 54px; }
+    .weather h2 { font-size: 30px; }
+    .details { flex-wrap: wrap; gap: 24px 36px; margin-top: 34px; }
+    .col img { width: 34px; }
+    .humidity, .wind { font-size: 22px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .footer-grid { text-align: center; }
+    .footer a:not(.logo):hover { transform: none; }
+}
+
+/* ---------- Small phones (≤380px) ---------- */
+@media (max-width: 380px) {
+    .logo { font-size: 20px; }
+    .card { padding: 20px 14px; }
+    .weather h1 { font-size: 46px; }
+    .weather h2 { font-size: 26px; }
+    .weather-icon { width: 110px; }
+    .details { flex-direction: column; gap: 18px; }
+    .btn { padding: 11px 26px; }
+}
+
+/* ---------- Landscape phones (short screens) ---------- */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero { padding: 30px 6% 20px; }
+    .navbar { position: static; }
+    .nav-links { position: static; }
+}
+
+/* ---------- Touch devices: no sticky hover, no fixed-bg jank ---------- */
+@media (hover: none) {
+    body { background-attachment: scroll; }   /* fixed bg is buggy on iOS/Android */
+    .card:hover,
+    .feature:hover,
+    .col:hover,
+    .weather-icon:hover { transform: none; }
+    .btn:hover { transform: none; box-shadow: none; }
+    .search button:hover { transform: none; }
+    .feature:hover .emoji { animation: none; transform: none; }
+}
+
+/* Make tap targets comfortably big on touch screens */
+@media (pointer: coarse) {
+    .nav-toggle { padding: 8px 12px; }
+    .search button { min-width: 48px; min-height: 48px; }
+}
+
+/* Print: clean, no map */
+@media print {
+    body { background: #fff; color: #000; }
+    .navbar, .footer, .hero .btn { display: none; }
+}
